@@ -3,94 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Harper Alexander Quigley</title>
+    <title>Harper Alexander Quigley</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
-        /* 1. RESET */
+        /* 1. BASIC RESET & FONTS */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: #ffffff;
             color: #000000;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden; 
         }
 
         /* 2. HEADER */
         header {
+            padding: 20px 20px 0 20px; 
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 20px 0 20px;
-            background-color: rgba(255, 255, 255, 0.95); 
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
+            z-index: 10;
+            pointer-events: none; 
         }
 
         h1 {
-            font-size: 14px;
+            font-size: 14px; 
             font-weight: normal;
+            pointer-events: auto;
         }
 
-        .back-link {
-            text-decoration: none;
-            color: black;
-            font-size: 14px;
-        }
-
-        /* 3. GRID LAYOUT */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columns */
-            gap: 0; /* No spacing */
-            padding-top: 60px; /* Space for header */
-            padding-bottom: 20px;
-        }
-
-        .gallery-item img {
+        /* 3. THE DRAGGABLE MARQUEE */
+        .marquee-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center; 
             width: 100%;
-            height: 100%;
-            display: block; 
-            object-fit: cover;
+            overflow: hidden;
+            cursor: grab; 
         }
 
-        /* Mobile: 1 Column */
+        .marquee-container:active {
+            cursor: grabbing; 
+        }
+
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            will-change: transform; 
+        }
+
+        .marquee-track img {
+            height: 50vh; 
+            width: auto;  
+            margin-right: 0px; 
+            display: block;
+            pointer-events: none; 
+            user-select: none;
+        }
+
+        /* 4. FOOTER */
+        footer {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            font-size: 14px;
+            line-height: 1.4;
+            width: 100%;
+            background: white; 
+            z-index: 10;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-left a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            margin-bottom: 2px; /* Small spacing between links */
+        }
+        
+        .footer-center {
+            max-width: 600px;
+        }
+
+        .footer-right {
+            text-align: right;
+            cursor: pointer;
+            user-select: none; 
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
+            .marquee-track img { height: 40vh; }
+            footer { grid-template-columns: 1fr; gap: 20px; }
+            .footer-right { text-align: left; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="back-link">Harper Alexander Quigley</a>
-        <a href="index.html" class="back-link">(Back)</a>
+        <h1>Harper Alexander Quigley</h1>
     </header>
 
-    <main class="gallery">
-        <div class="gallery-item"><img src="1.jpg" alt="Photo 1"></div>
-        <div class="gallery-item"><img src="2.jpg" alt="Photo 2"></div>
-        <div class="gallery-item"><img src="3.jpg" alt="Photo 3"></div>
-        <div class="gallery-item"><img src="4.jpg" alt="Photo 4"></div>
-        <div class="gallery-item"><img src="5.png" alt="Photo 5"></div> <div class="gallery-item"><img src="6.jpg" alt="Photo 6"></div>
+    <div class="marquee-container" id="marqueeContainer">
+        <div class="marquee-track" id="track">
+            <img src="1.jpg" alt="Photo 1">
+            <img src="2.jpg" alt="Photo 2">
+            <img src="3.jpg" alt="Photo 3">
+            <img src="4.jpg" alt="Photo 4">
+            <img src="5.png" alt="Photo 5">
+            <img src="6.jpg" alt="Photo 6">
+            
+            <img src="1.jpg" alt="Photo 1">
+            <img src="2.jpg" alt="Photo 2">
+            <img src="3.jpg" alt="Photo 3">
+            <img src="4.jpg" alt="Photo 4">
+            <img src="5.png" alt="Photo 5">
+            <img src="6.jpg" alt="Photo 6">
+        </div>
+    </div>
 
-        <div class="gallery-item"><img src="7.jpg" alt="Photo 7"></div>
-        <div class="gallery-item"><img src="8.jpg" alt="Photo 8"></div>
-        <div class="gallery-item"><img src="9.jpg" alt="Photo 9"></div>
-        <div class="gallery-item"><img src="10.jpg" alt="Photo 10"></div>
-        <div class="gallery-item"><img src="11.jpg" alt="Photo 11"></div>
-        <div class="gallery-item"><img src="12.jpg" alt="Photo 12"></div>
-        <div class="gallery-item"><img src="13.jpg" alt="Photo 13"></div>
-        <div class="gallery-item"><img src="14.jpg" alt="Photo 14"></div>
-        <div class="gallery-item"><img src="15.jpg" alt="Photo 15"></div>
-    </main>
+    <footer>
+        <div class="footer-left" id="info-left">
+            <a href="mailto:harperquigleymusic@gmail.com">(email)</a>
+            <a href="https://instagram.com/haq.visuals" target="_blank">(instagram)</a>
+            <a href="portfolio.html">(portfolio)</a>
+        </div>
+        <div class="footer-center" id="info-center">
+            I am a photographer from Durham, North Carolina. I take photos of life. To reach me, send me an email or an Instagram DM - I'd be happy to chat.
+        </div>
+        <div class="footer-right" onclick="toggleInfo()">(Close)</div>
+    </footer>
 
+    <script>
+        // 1. FOOTER TOGGLE
+        function toggleInfo() {
+            var leftCol = document.getElementById("info-left");
+            var centerCol = document.getElementById("info-center");
+            var button = document.querySelector(".footer-right");
+            if (button.innerHTML.trim() === "(Close)") {
+                leftCol.classList.add("hidden");
+                centerCol.classList.add("hidden");
+                button.innerHTML = "(Info)";
+            } else {
+                leftCol.classList.remove("hidden");
+                centerCol.classList.remove("hidden");
+                button.innerHTML = "(Close)";
+            }
+        }
+
+        // 2. DRAGGABLE MARQUEE LOGIC
+        const track = document.getElementById('track');
+        const container = document.getElementById('marqueeContainer');
+        
+        let speed = 0.7; 
+        let position = 0;
+        let isDragging = false;
+        let startX = 0;
+        let lastX = 0;
+        let velocity = 0;
+
+        function animate() {
+            const trackWidth = track.scrollWidth;
+            const singleSetWidth = trackWidth / 2;
+
+            if (!isDragging) {
+                position -= speed; 
+                position += velocity;
+                velocity *= 0.95; 
+            }
+
+            if (position <= -singleSetWidth) {
+                position += singleSetWidth;
+            }
+            if (position > 0) {
+                position -= singleSetWidth;
+            }
+
+            track.style.transform = `translateX(${position}px)`;
+            requestAnimationFrame(animate);
+        }
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            lastX = e.clientX;
+            velocity = 0; 
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const currentX = e.clientX;
+            const delta = currentX - lastX; 
+            position += delta; 
+            velocity = delta;  
+            lastX = currentX;
+        });
+
+        animate();
+    </script>
 </body>
 </html>
